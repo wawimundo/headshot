@@ -28,6 +28,20 @@ module Headshot
           "\t\t#{loading_code}\n"
         end
       end
+
+      def initialize_session_store
+        session_store_rb_path = "config/initializers/session_store.rb"
+        loading_code = 'config.autoload_paths += %W(#{config.root}/app/middlewares)'
+        say_status('checking', 'Checking if session_store.rb contains the code for initializing for the middleware.')
+        initializer_code = "\n"
+
+        inside(source_paths[0] + '/../initializers', :verbose => true) do
+          initializer_code_lines = IO.readlines('session_store.rb')
+          initializer_code += initializer_code_lines.join('')
+        end
+
+        append_file(session_store_rb_path, initializer_code)
+      end
     end
   end
 end
