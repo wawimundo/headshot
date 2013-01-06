@@ -27,6 +27,7 @@ module Headshot
       def setup_paperclip
         say_status('registration', 'Adding paperclip to Gemfile ...')
         gem "paperclip"
+        gem 'cocaine', '0.3.2'
       end
     end
   end
