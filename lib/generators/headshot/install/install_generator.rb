@@ -23,6 +23,11 @@ module Headshot
         say_status('copying', 'Copying Flash application files ...')
         copy_file('swfs/headshot.swf', 'public/swfs/headshot.swf')
       end
+
+      def setup_paperclip
+        say_status('registration', 'Adding paperclip to Gemfile ...')
+        gem "paperclip"
+      end
     end
   end
 end
