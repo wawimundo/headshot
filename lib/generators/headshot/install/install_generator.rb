@@ -10,18 +10,18 @@ module Headshot
 
       def copy_javascripts
         say_status('copying', 'Copying Javascripts ...')
-        copy_file('javascripts/headshot.js', 'public/swfs')
-        copy_file('javascripts/headshot_support.js', 'public/javascripts')
+        copy_file('javascripts/headshot.js', 'app/assets/javascripts/headshot.js')
+        copy_file('javascripts/headshot_support.js', 'app/assets/javascripts/headshot_support.js')
       end
 
       def copy_audio_files
         say_status('copying', 'Copying Audio files ...')
-        copy_file('audio/shutter.mp3', 'public/audio')
+        copy_file('audio/shutter.mp3', 'public/audio/shutter.mp3')
       end
 
       def copy_flash_app_files
         say_status('copying', 'Copying Flash application files ...')
-        copy_file('swfs/headshot.swf', 'public/swfs')
+        copy_file('swfs/headshot.swf', 'public/swfs/headshot.swf')
       end
     end
   end
