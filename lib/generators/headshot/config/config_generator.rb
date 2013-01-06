@@ -42,6 +42,15 @@ module Headshot
 
         append_file(session_store_rb_path, initializer_code)
       end
+
+      def create_default_directories
+        begin
+          say_status('creating', 'Creating default headshots directory public/headshots.')
+          Dir.mkdir('public/headshots')
+        rescue Errno::EEXIST => e
+          say('Directory public/headshots exists!')
+        end
+      end
     end
   end
 end
