@@ -23,13 +23,9 @@ module Headshot
         code_marker = "class Application < Rails::Application"
         loading_code = 'config.autoload_paths += %W(#{config.root}/app/middlewares)'
         say_status('checking', 'Checking if application.rb contains the loading code for the middleware.')
-        application_rb = IO.readlines(application_rb_path)
-        application_rb_lines = application_rb.join('')
 
-        unless application_rb_lines.include?(loading_code)
-          inject_into_file application_rb_path, :after => "#{code_marker}\n" do
-            "\t\t#{loading_code}\n"
-          end
+        inject_into_file application_rb_path, :after => "#{code_marker}\n" do
+          "\t\t#{loading_code}\n"
         end
       end
     end
