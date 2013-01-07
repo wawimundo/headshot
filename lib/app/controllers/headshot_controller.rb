@@ -1,21 +1,48 @@
 class HeadshotController < ApplicationController
   include HeadshotSupport
   def capture
-    session[:user] ||= "User #{Time.now.to_i}"
-    logger.info "User captured #{session[:user]}"
+    file_path = ''
+    begin
+      file_path = method(:headshot_custom_file_path).call
+    rescue
+      file_path = headshot_file_path
+    end
 
-    file_path =  headshot_file_path
+    # Pre save hook.
+    begin
+      method(:headshot_pre_save).call(file_path)
+    rescue
+      # No pre save hook.
+    end
 
-    if request.raw_post
-      File.open(file_path, 'wb') do |f|
-        f.write request.raw_post
+    # Method for saving the JPEG file.
+    begin
+      method(:headshot_custom_save_image).call(file_path, request.raw_post)
+
+    # Only catch the error if method is undefined.
+    rescue NameError => e
+      saving_result = headshot_save_image(file_path, request.raw_post)
+
+      unless saving_result
+        render :json => {
+          :status => 'Error',
+          :message => 'Saving of headshot failed.'
+        }
+        return
       end
     end
 
-    @headshot_photo = HeadshotPhoto.new
-    @headshot_photo.image = File.new(file_path)
-    @headshot_photo.save
+    # Post save hook.
+    begin
+      method(:headshot_post_save).call(file_path)
+    rescue
+      # No post save hook.
+    end
 
-    render :text => "#{headshot_image_url(@headshot_photo)}"
+    render :json => {
+      :status => 'Success',
+      :message => 'Headshot saved.',
+      :url => "#{headshot_image_url(File.basename(file_path))}"
+    }
   end
 end
