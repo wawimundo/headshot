@@ -39,10 +39,17 @@ class HeadshotController < ApplicationController
       # No post save hook.
     end
 
+    headshot_url = ""
+    begin
+      headshot_url = method(:headshot_custom_image_url).call(File.basename(file_path))
+    rescue
+      headshot_url = "#{headshot_image_url(File.basename(file_path))}"
+    end
+
     render :json => {
       :status => 'Success',
       :message => 'Headshot saved.',
-      :url => "#{headshot_image_url(File.basename(file_path))}"
+      :url => headshot_url
     }
   end
 end
