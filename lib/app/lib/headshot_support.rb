@@ -12,7 +12,7 @@ module HeadshotSupport
     if raw_jpeg_data
       begin
         File.open(file_path, 'wb') do |file|
-          file.write request.raw_post
+          file.write raw_jpeg_data
         end
       rescue
         raise "Headshot: cannot save headshot on #{file_path}. Please check file permissions."
