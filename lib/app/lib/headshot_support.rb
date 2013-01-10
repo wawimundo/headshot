@@ -1,6 +1,6 @@
 module HeadshotSupport
   def headshot_file_path
-    file_name = "headshot_capture_#{rand(10000)}_#{Time.now.to_i}.jpg"
+    file_name = "headshot_capture_#{headshot_file_timestamp}.jpg"
     File.join(Rails.root, 'public', 'headshots', file_name)
   end
 
@@ -15,12 +15,16 @@ module HeadshotSupport
           file.write request.raw_post
         end
       rescue
-        raise "Headshot: cannot save headshot on #{raw_jpeg_data}. Please check file permissions."
+        raise "Headshot: cannot save headshot on #{file_path}. Please check file permissions."
       end
     else
       return nil
     end
 
     true
+  end
+
+  def headshot_file_timestamp
+    "#{rand(10000)}_#{Time.now.to_i}"
   end
 end
