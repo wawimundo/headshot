@@ -23,6 +23,11 @@ module Headshot
         say_status('copying', 'Copying Flash application files ...')
         copy_file('swfs/headshot.swf', 'public/swfs/headshot.swf')
       end
+
+      def run_other_generators
+        generate("headshot:config")
+        generate("headshot:generate")
+      end
     end
   end
 end
