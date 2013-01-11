@@ -42,7 +42,7 @@ module HeadshotHelper
             }
         }
 
-        headshot.set_swf_url('#{options[:swf_url]}')
+        headshot.set_swf_url('#{options[:swf_url]}');
         headshot.set_api_url('#{capture_path}');
         headshot.set_quality(#{options[:quality]});
         headshot.set_shutter_sound(#{options[:shutter_sound]}, '#{options[:shutter_sound_url]}');
