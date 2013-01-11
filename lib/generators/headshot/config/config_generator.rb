@@ -8,13 +8,6 @@ module Headshot
 
       def copy_flash_middleware
         say_status('copying', 'Copying Flash session cookie middleware ...')
-        begin
-          say_status('creating', 'Creating directory app/middlewares.')
-          Dir.mkdir('app/middlewares')
-        rescue Errno::EEXIST => e
-          say('Directory app/middlewares exists!')
-        end
-
         copy_file('../middlewares/flash_session_cookie_middleware.rb', 'app/middlewares/flash_session_cookie_middleware.rb')
       end
 
@@ -44,12 +37,8 @@ module Headshot
       end
 
       def create_default_directories
-        begin
-          say_status('creating', 'Creating default headshots directory public/headshots.')
-          Dir.mkdir('public/headshots')
-        rescue Errno::EEXIST => e
-          say('Directory public/headshots exists!')
-        end
+        say_status('creating', 'Creating default headshots directory public/headshots.')
+        create_file('public/headshots/empty_file', '')
       end
     end
   end
