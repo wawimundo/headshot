@@ -1,10 +1,18 @@
 module HeadshotHelper
-  def headshot_snap_button(label = 'Snap', default_handler = 'headshotHandlers.snap()')
-    button_tag(label, :onclick => default_handler)
+  def headshot_snap_button(label = 'Snap', options = {})
+    options.reverse_merge!({
+      :onclick => 'headshotHandlers.snap()'
+    })
+
+    button_tag(label, options)
   end
 
-  def headshot_config_button(label = 'Configure', default_handler = 'headshot.configure()')
-    button_tag(label, :onclick => default_handler)
+  def headshot_config_button(label = 'Configure', options = {})
+    options.reverse_merge!({
+      :onclick => 'headshot.configure()'
+    })
+
+    button_tag(label, options)
   end
 
   def headshot_camera(width = 400, height = 300)
