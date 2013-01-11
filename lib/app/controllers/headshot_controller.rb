@@ -36,7 +36,11 @@ class HeadshotController < ApplicationController
     begin
       method(:headshot_post_save).call(file_path)
     rescue
-      # No post save hook.
+      @headshot_photo = HeadshotPhoto.create(
+        :image_file_name => File.basename(file_path),
+        :image_content_type => 'image/jpeg',
+        :image_updated_at => Time.now
+      )
     end
 
     headshot_url = ""

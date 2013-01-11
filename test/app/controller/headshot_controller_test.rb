@@ -10,9 +10,10 @@ class HeadshotControllerTest < ActionController::TestCase
   end
 
   def test_capture_default_behavior
-    post :capture
-
-    assert_response :success
+    assert_difference('HeadshotPhoto.count', 1) do
+      post :capture
+      assert_response :success
+    end
 
     response_json = JSON.parse(response.body)
     file_name = File.basename(response_json["url"])
