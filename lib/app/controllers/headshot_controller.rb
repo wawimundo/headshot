@@ -56,7 +56,7 @@ class HeadshotController < ApplicationController
 private
 
   def headshot_params 
-    params.require(:headshot).permit(:description, 
+    params.require(:headshot_photo).permit(:description, 
                                      :image_file_size, 
                                      :image_file_name => File.basename(file_path), 
                                      :image_content_type => 'image/jpeg', 
