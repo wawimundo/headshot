@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    headshot (0.1.4)
+    headshot (0.1.6)
 
 GEM
   remote: http://rubygems.org/
